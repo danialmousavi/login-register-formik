@@ -12,7 +12,8 @@ export default function Register() {
       mobile:"",
       password:"",
       confirm_password:"",
-      auth_mode:"mobile"
+      auth_mode:"mobile",
+      image:null
     },
     onSubmit: (values) => {
       console.log('Form submitted:', values);
@@ -138,6 +139,18 @@ export default function Register() {
                 {formik.errors.confirm_password && formik.touched.confirm_password ? (
                   <div className="invalid-feedback">
                     {formik.errors.confirm_password}
+                  </div>
+                ) : null}
+              </div>
+              {/* image upload */}
+              <div className="mb-3">
+                <label htmlFor="image" className="form-label">آپلود تصویر</label>
+                <input type="file" className={`form-control ${formik.errors.image&&formik.touched.image?"is-invalid":""}`} id="image" placeholder="image" onChange={(event) => {
+                  formik.setFieldValue("image", event.target.files[0]);
+                }} onBlur={formik.handleBlur} />
+                {formik.errors.image && formik.touched.image ? (
+                  <div className="invalid-feedback">
+                    {formik.errors.image}
                   </div>
                 ) : null}
               </div>

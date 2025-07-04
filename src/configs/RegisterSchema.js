@@ -38,6 +38,13 @@ const RegisterSchema = Yup.object({
   confirm_password: Yup.string()
     .oneOf([Yup.ref('password'), null], 'رمزعبورها مطابقت ندارند')
     .required('تأیید رمزعبور الزامی است'),
+
+    
+    image: Yup.mixed().required().test('fileSize', 'حجم فایل باید کمتر از 2MB باشد', (value) => {
+      if (!value) return true; // If no file is selected, skip validation
+      const fileSize = value.size / 1024 / 1024; // Convert size to MB
+      return fileSize <= 2; // Check if file size is less than or equal to 2MB
+    })
 });
 
 export default RegisterSchema;
